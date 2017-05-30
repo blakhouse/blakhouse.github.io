@@ -33,13 +33,15 @@
       </div>
       <script>
         function load(page) {
-          promise.get(page + '.html').then(function(error, text, xhr) {
+          console.log('/' + page + '.html');
+          promise.get('/' + page + '.html').then(function(error, text, xhr) {
             if (error) {
                 alert('Error ' + xhr.status);
                 return;
             }
+            console.log(text);
             //alert('The page contains ' + text.length + ' character(s).');
-            document.getElementById('content').innerHTML(text);
+            document.getElementById('content').innerHTML = text;
           });
         }
       </script>
