@@ -27,10 +27,23 @@
                   <li class="pure-menu-item"><a href="/show.html" class="pure-menu-link">Uppvisninar</a></li>
                   <li class="pure-menu-item"><a href="/offers.html" class="pure-menu-link">Kurser</a></li>
                   <li class="pure-menu-item"><a href="/about.html" class="pure-menu-link">About</a></li>
+                  <li class="pure-menu-item"><a onclick="load('about')" class="pure-menu-link">About Test</a></li>
               </ul>
           </div>
       </div>
-      <div class="pure-g">
+      <script>
+        function load(page) {
+          promise.get(page + '.html').then(function(error, text, xhr) {
+            if (error) {
+                alert('Error ' + xhr.status);
+                return;
+            }
+            //alert('The page contains ' + text.length + ' character(s).');
+            document.getElementById('content').innerHTML(text);
+          });
+        }
+      </script>
+      <div class="pure-g" id="content">
         <div class="photo-box pure-u-2-3"><img src="/img/troup.png" alt="The Team"></div>
         <div class="pure-textbox pure-u-1-3"><p class="padding">We are a small lindy hop show group who started late 2016 in southern sweden. We are 4 couples and do public and private showes, teaching and just have plain fun.</p></div>
         <div class="pure-u-1-5"><img src="/img/practice-small.png" /></div>
