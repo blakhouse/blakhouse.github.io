@@ -7,17 +7,42 @@
     <link rel="icon" type="image/png"  href="/img/sax.png">
     <script src="/js/promise.min.js"></script>
     <style>
-      html {background: url('/img/troup.png');background-size: cover; background-color: black; color: gold;}
-      body {max-width: 1160px; margin: 0 auto;}
-      .frame {background-color:black; border: 1px solid gold; border-radius: 25px; padding: 20px; min-height: 310px; opacity:0.7}
+      @font-face {
+        font-family: 'York Whiteletter'; /*a name to be used later*/
+        src: url('/font/yorkwhiteletter.ttf');
+      }
+      html {
+          background: url('/img/troup.png'); 
+          background-size: cover; 
+          background-color: black; 
+          color: gold;
+        }
+      body {
+          max-width: 1160px; 
+          margin: 0 auto;
+        }
+      .frame {
+          background-color:black; 
+          opacity:0.7; 
+          border: 1px solid gold; 
+          border-radius: 25px; 
+          padding: 10%;
+        }
       .headline {border-bottom: solid 1px gold;}
+      .show-box {
+        margin: 10px 0px;
+        padding-top: 10px;
+        border-top: 1px solid gold;
+        }
+      .show-box:first-child {
+        margin-top: 30px;      
+      }
       .pure-menu-link {color: gold;}
-      .pure-g {text-align: center;min-width:1024px; max-width: 1168px; margin-left: auto; margin-right: auto;}
-      .padding {margin: 20%;}
+      .pure-g {min-width:1024px; max-width: 1168px; margin-left: auto; margin-right: auto;}
       .gold {color: gold;}
-      .blue {text-align: center; background-color: black;}
-      .green {text-align: center; background-color: black;}
+      .logo {text-align: center; font-family:'York Whiteletter'; font-size: 120px;}
       .max-height{height: 100%}
+      .content {margin-top: 100px;}
     </style>
   </head>
   <body onload="load('home')">
@@ -26,28 +51,22 @@
           <div class="pure-menu pure-menu-horizontal gold">
               <a class="pure-menu-heading gold" style="width: 65%" onclick="load('home')">Swing Jazzez</a>
               <ul class="pure-menu-list">
-                  <li class="pure-menu-item"><a onclick="load('blog')" class="pure-menu-link">Blog</a></li>
-                  <li class="pure-menu-item"><a onclick="load('shows')" class="pure-menu-link">Uppvisningar</a></li>
-                  <li class="pure-menu-item"><a onclick="load('offers')" class="pure-menu-link">Anlita oss</a></li>
                   <li class="pure-menu-item"><a onclick="load('about')" class="pure-menu-link">Om oss</a></li>
+                  <li class="pure-menu-item"><a onclick="load('offers')" class="pure-menu-link">Anlita oss</a></li>
+                  <li class="pure-menu-item"><a onclick="load('shows')" class="pure-menu-link">Uppvisningar</a></li>
               </ul>
           </div>
       </div>
       <script>
+        function loadpage(error, text, xhr) {
+          if (error) {alert('Error ' + xhr.status);return;}
+          document.getElementById('content').innerHTML = text;
+        }
         function load(page) {
-          console.log('/' + page + '.html');
-          promise.get('/' + page + '.html').then(function(error, text, xhr) {
-            if (error) {
-                alert('Error ' + xhr.status);
-                return;
-            }
-            console.log(text);
-            //alert('The page contains ' + text.length + ' character(s).');
-            document.getElementById('content').innerHTML = text;
-          });
+          promise.get('/' + page + '.html').then(loadpage);
         }
       </script>
-      <div class="pure-g" id="content">
+      <div class="pure-g content" id="content">
 
       </div>
     </div>
