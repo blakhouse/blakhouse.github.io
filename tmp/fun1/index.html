@@ -1,0 +1,53 @@
+<html>
+<head>
+ <style>
+	.box {
+		width: 50px;
+		height: 50px;
+		color: grey;
+		border: 1px solid black;
+		float: left;
+	}
+	.break {
+		clear: left;
+	}
+	.cross { background-image: url(cross.png) }
+	.circle {background-image: url(circle.png) }
+ </style>
+ <script>
+	var count = 0;
+	function selectBox(elem) {
+		if(!elem.className.includes("cross") && !elem.className.includes("circle")) {
+			count++;
+			if(count %2 == 0)
+				console.log(elem.className += " cross");
+			else
+				console.log(elem.className += " circle");
+			checkWinningCondition();
+		}
+	}
+	function checkWinningCondition() {
+		elems = document.getElementsByClassName("box");
+		console.log(elems);
+		
+
+	}
+	
+ </script>	
+</head>
+<body>
+<div><h3>Hello world</h3></div>
+<div>Ikano Tic Tac Toe</div>
+<div>
+<div id="box1" class="box" onclick="selectBox(this)"></div>
+<div id="box2" class="box" onclick="selectBox(this)"></div>
+<div id="box3" class="box" onclick="selectBox(this)"></div>
+<div id="box4" class="box break" onclick="selectBox(this)"></div>
+<div id="box5" class="box" onclick="selectBox(this)"></div>
+<div id="box6" class="box" onclick="selectBox(this)"></div>
+<div id="box7" class="box break" onclick="selectBox(this)"></div>
+<div id="box8" class="box" onclick="selectBox(this)"></div>
+<div id="box9" class="box" onclick="selectBox(this)"></div>
+</div>
+</body>
+<html>
