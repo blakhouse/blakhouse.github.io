@@ -1,0 +1,108 @@
+<html>
+<head>
+ <style>
+	.box {
+		width: 50px;
+		height: 50px;
+		color: grey;
+		border: 1px solid black;
+		float: left;
+	}
+	.box:hover {
+		color: yellow;
+		border: 1px solid red;
+	}
+	.break { clear: left; }
+	.question {background-image: url(question.png)}
+	.cross { background-image: url(cross.png) }
+	.circle { background-image: url(circle.png) }
+	.monster { background-image: url(monster.png) }
+	.player { background-image: url(player.png) }
+ </style>
+ <script>
+	var player = {	"hp": 20, 
+			"stam": 20,
+			"mana": 20, 
+			"x": 1, 
+			"y":1	};
+	var old ={"className": ""};
+	var count = 0;
+	var grid;
+	var regen;
+
+	function selectBox(target) {
+		if(player.stam < 1) {
+			document.getElementById("chat").innerHTML += "<div>You have run out of stamina!</div>"
+			return;
+		}
+		old.className = old.className.replace("player", "");
+		old = target;
+		target.className = target.className.replace("question", "") + " player";
+		player.stam--;
+
+		if(target.className.includes("monster")) {
+			document.getElementById("chat").innerHTML = "<div>A fight have started</div>";
+			if(Math.random()*100 > 80) {
+				if(player.hp <= 0) {
+					document.getElementById("chat").innerHTML += "<div>A monster have successfully slain you!</div>";
+					document.getElementById("screen").innerHTML = "<h2>GAME OVER</h2>";
+				}
+				else {
+					document.getElementById("chat").innerHTML += "<div>A monster hits you for 1 damage.</div>";
+					if(player.stam < 1) 
+						player.hp--;			
+					player.hp--;
+					player.stam--;
+				}
+			}
+			else {
+				document.getElementById("chat").innerHTML += "<div>A you have slain the monster!!</div>";
+				target.className = target.className.replace("monster", "");
+			}
+		}
+		updatePlayerStats(player);
+	}
+
+	function init() {
+		initGrid(20,12);
+		console.log(document);
+		var elements = document.getElementsByClassName("box");
+		console.log(elements);
+
+		for(var a of elements) {
+			a.className += (Math.random()*15) > 10 ? " monster": "";
+		}
+		old = elements[0];
+		selectBox(elements[0]);
+		updatePlayerStats(player);
+	
+		regen = setInterval(()=>{
+			if(player.hp < 20) player.hp+=0.5;
+			if(player.stam < 20) player.stam+=5;
+			
+			updatePlayerStats(player);
+		}, 5000)		
+	}
+	function updatePlayerStats(p) {
+		document.getElementById("player").innerHTML = JSON.stringify(p);
+	}
+	function initGrid(x, y) {
+		grid = [];
+		for( var i = 0; i <  y; i++ ) {
+			for( var j = 0; j < x; j++) {				
+				document.getElementById("screen").innerHTML += "<div class='box question " + (j<1 ? "break": "") + "' onclick='selectBox(this)'></div>";
+			}
+		}
+	}
+	
+ </script>	
+</head>
+<body onload="init();">
+<div><h3>Squares</h3></div>
+<div>Fight your way</div>
+<div id="player"></div>
+<div id="screen">
+</div>
+<div id="chat" ></div>
+</body>
+<html>
