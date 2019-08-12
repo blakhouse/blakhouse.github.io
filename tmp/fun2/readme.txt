@@ -1,8 +1,8 @@
 
 Very next goal:
-Limit movement -> Neighboring square + text feedback.
-Limit Chat -> 20 lines
-localstorage -> long term play.
+Limit movement -> Left, Right, Up, Down 
+Combat Dialog
+Dynamic maps  (Entrypoint, Exit points, Monster spawns, Chances) 
 Level up ->  Skills & Abilites
 Starter Island
 
